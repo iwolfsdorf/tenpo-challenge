@@ -5,7 +5,7 @@
 - Linux console (In Windows SO you can use Git Bash)
 - Postman
 - Maven (You can install maven with [SdkMan](https://sdkman.io))
-- Java 11 (You can install maven with [SdkMan](https://sdkman.io))
+- Java 11 (You can install java with [SdkMan](https://sdkman.io))
 
 ## Usage
 
