@@ -9,7 +9,7 @@ import org.springframework.retry.support.RetryTemplate;
 
 @Configuration
 @EnableRetry
-public class RetriesConfig {
+public class RetryConfig {
 
     @Bean
     public RetryTemplate retryTemplate() {

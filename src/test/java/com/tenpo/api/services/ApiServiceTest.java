@@ -23,7 +23,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @ActiveProfiles(profiles = "non-async")
-public class ApiServiceTest {
+class ApiServiceTest {
 
     @Mock
     private ExternalService externalService;

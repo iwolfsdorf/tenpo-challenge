@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Duration;
@@ -39,8 +38,8 @@ public class ApiController {
     public ResponseEntity<String> sumNumbers(@RequestParam Double num1, @RequestParam Double num2) {
         if (bucket.tryConsume(1)) {
             try {
-                Double valueResult = apiService.sumWithPercentage(num1, num2);
-                return ResponseEntity.ok(valueResult.toString());
+                Double value = apiService.sumWithPercentage(num1, num2);
+                return ResponseEntity.ok(value.toString());
             } catch (ApiException e) {
                 throw new ResponseStatusException(e.getHttpStatus());
             }

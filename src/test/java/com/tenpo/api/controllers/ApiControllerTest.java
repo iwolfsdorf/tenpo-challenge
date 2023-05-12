@@ -1,6 +1,6 @@
 package com.tenpo.api.controllers;
 
-import com.tenpo.api.config.RetriesConfig;
+import com.tenpo.api.config.RetryConfig;
 import com.tenpo.api.entities.Result;
 import com.tenpo.api.services.ApiService;
 import com.tenpo.api.services.ExternalService;
@@ -28,10 +28,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 @WebMvcTest(controllers = ApiController.class,
         excludeAutoConfiguration = {
-                RetriesConfig.class
+                RetryConfig.class
         })
 @ActiveProfiles(profiles = "non-async")
-public class ApiControllerTest {
+class ApiControllerTest {
 
     @Autowired
     MockMvc mockMvc;

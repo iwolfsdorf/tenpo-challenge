@@ -4,6 +4,8 @@ import com.tenpo.api.exceptions.ApiException;
 import com.tenpo.api.entities.Result;
 import com.tenpo.api.exceptions.ProviderException;
 import com.tenpo.api.repositories.ResultsRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +21,8 @@ public class ApiService {
     private final ExternalService externalService;
     private final ResultsRepository resultsRepository;
 
+    Logger log = LoggerFactory.getLogger(ApiService.class);
+
     public ApiService(ExternalService externalService, ResultsRepository resultsRepository) {
         this.externalService = externalService;
         this.resultsRepository = resultsRepository;
@@ -28,10 +32,10 @@ public class ApiService {
         Double percentage = null;
         try {
             percentage = externalService.getPercentage();
-            Double valueResult = (num1 + num2) * (1 + percentage / 100);
-            Result result = new Result(LocalDateTime.now(), num1, num2, percentage, valueResult);
+            Double value = (num1 + num2) * (1 + percentage / 100);
+            Result result = new Result(LocalDateTime.now(), num1, num2, percentage, value);
             saveResult(result);
-            return valueResult;
+            return value;
         } catch (ProviderException e) {
             throw new ApiException(HttpStatus.METHOD_NOT_ALLOWED);
         }
@@ -47,7 +51,7 @@ public class ApiService {
         try{
             resultsRepository.save(result);
         } catch (Exception e) {
-            System.out.println("Unexpected error trying save result in DB: " + e.getMessage());
+            log.error("Unexpected error trying save result in DB: " + e.getMessage());
         }
     }
 

@@ -23,17 +23,17 @@ public class Result {
     @Column(name = "percentage")
     private Double percentage;
 
-    @Column(name = "result")
-    private Double result;
+    @Column(name = "value")
+    private Double value;
 
     public Result() {}
 
-    public Result(LocalDateTime dateTime, Double num1, Double num2, Double percentage, Double result) {
+    public Result(LocalDateTime dateTime, Double num1, Double num2, Double percentage, Double value) {
         this.dateTime = dateTime;
         this.num1 = num1;
         this.num2 = num2;
         this.percentage = percentage;
-        this.result = result;
+        this.value = value;
     }
 
     public Long getId() {
@@ -72,11 +72,11 @@ public class Result {
         this.percentage = percentage;
     }
 
-    public Double getResult() {
-        return result;
+    public Double getValue() {
+        return value;
     }
 
-    public void setResult(Double result) {
-        this.result = result;
+    public void setValue(Double value) {
+        this.value = value;
     }
 }
