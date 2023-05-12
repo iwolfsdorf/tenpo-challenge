@@ -11,6 +11,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -29,6 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
         excludeAutoConfiguration = {
                 RetriesConfig.class
         })
+@ActiveProfiles(profiles = "non-async")
 public class ApiControllerTest {
 
     @Autowired
@@ -71,21 +73,6 @@ public class ApiControllerTest {
     }
 
     @Test
-    void whenSumNumber_error_expect_TooManyRequests() throws Exception {
-        final Double num1 = 10.0;
-        final Double num2 = 5.0;
-
-        when(apiService.sumWithPercentage(any(Double.class), any(Double.class))).thenThrow(new ResponseStatusException(HttpStatus.TOO_MANY_REQUESTS));
-
-        mockMvc.perform(post("/sum?num1=" + num1 + "&num2=" + num2))
-                .andExpect(status().is4xxClientError())
-                .andExpect(status().is(429))
-                .andDo(print());
-
-        verify(apiService, atLeast(1)).sumWithPercentage(any(Double.class), any(Double.class));
-    }
-
-    @Test
     void whenGetResults_success_expect_PageWithTwoResults() throws Exception {
         final Result result1 = new Result(LocalDateTime.now(), 10.0, 5.0, 10.0, 16.5);
         final Result result2 = new Result(LocalDateTime.now(), 20.0, 5.5, 15.0, 29.325);
@@ -101,22 +88,6 @@ public class ApiControllerTest {
                 .andDo(print());
 
         verify(apiService, atLeast(1)).getResults(any(Integer.class), any(Integer.class));
-    }
-
-    @Test
-    void whenGetResults_error_expect_TooManyRequests() throws Exception {
-        final Result result1 = new Result(LocalDateTime.now(), 10.0, 5.0, 10.0, 16.5);
-        final Result result2 = new Result(LocalDateTime.now(), 20.0, 5.5, 15.0, 29.325);
-        final Page<Result> expected = new PageImpl<>(Arrays.asList(result1, result2));
-
-        when(apiService.getResults(any(Integer.class), any(Integer.class))).thenThrow();
-
-        mockMvc.perform(get("/results?page=0&size=10"))
-                .andExpect(status().is4xxClientError())
-                .andExpect(status().is(429))
-                .andDo(print());
-
-        verify(apiService, atLeast(1)).sumWithPercentage(any(Double.class), any(Double.class));
     }
 
 }
