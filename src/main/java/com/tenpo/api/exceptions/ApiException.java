@@ -1,4 +1,4 @@
-package com.tenpo.api.controllers.errorhandling;
+package com.tenpo.api.exceptions;
 
 import org.springframework.http.HttpStatus;
 
