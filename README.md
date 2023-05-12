@@ -1,9 +1,11 @@
 # Tenpo Challenge
 
-## Requirments
+## Requirements
 - [Docker](https://www.docker.com/ "Docker") installed
 - Linux console (In Windows SO you can use Git Bash)
 - Postman
+- Maven (You can install maven with [SdkMan](https://sdkman.io))
+- Java 11 (You can install maven with [SdkMan](https://sdkman.io))
 
 ## Usage
 
