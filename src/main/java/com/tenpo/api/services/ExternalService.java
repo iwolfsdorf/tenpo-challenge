@@ -11,24 +11,31 @@ import org.springframework.stereotype.Service;
 @Service
 public class ExternalService {
 
-    Logger log = LoggerFactory.getLogger(ExternalService.class);
-
     private static final Double PERCENTAGE_DEFAULT = 10.0;
+    Logger log = LoggerFactory.getLogger(ExternalService.class);
+    private Double lastPercentage;
 
     @Cacheable("percentage")
-    @Retryable(value = {ProviderException.class},maxAttempts = 3, backoff = @Backoff(delay = 1000))
+    @Retryable(value = {ProviderException.class}, maxAttempts = 3, backoff = @Backoff(delay = 1000))
     public Double getPercentage() throws ProviderException {
-        Double lastPercentage = null;
         log.info("Trying get percentage of external service");
         try {
             // call external service here
-            lastPercentage = PERCENTAGE_DEFAULT;
-        } catch (Exception ex) {
-            if(lastPercentage != null) {
+            lastPercentage = callService();
+        } catch (ProviderException ex) {
+            if (lastPercentage != null) {
                 return lastPercentage;
             }
-            throw new ProviderException();
+            throw ex;
         }
         return lastPercentage;
+    }
+
+    private Double callService() throws ProviderException {
+        try {
+            return PERCENTAGE_DEFAULT;
+        } catch (Exception ex) {
+            throw new ProviderException();
+        }
     }
 }

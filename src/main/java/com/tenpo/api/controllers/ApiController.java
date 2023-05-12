@@ -1,7 +1,7 @@
 package com.tenpo.api.controllers;
 
-import com.tenpo.api.exceptions.ApiException;
 import com.tenpo.api.entities.Result;
+import com.tenpo.api.exceptions.ApiException;
 import com.tenpo.api.services.ApiService;
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
@@ -11,7 +11,10 @@ import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Duration;
@@ -20,10 +23,8 @@ import java.time.Duration;
 public class ApiController {
 
     private final ApiService apiService;
-
-    CacheManager cacheManager;
-
     private final Bucket bucket;
+    CacheManager cacheManager;
 
     public ApiController(ApiService apiService, CacheManager cacheManager) {
         this.apiService = apiService;

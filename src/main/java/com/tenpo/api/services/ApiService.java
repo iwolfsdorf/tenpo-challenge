@@ -1,7 +1,7 @@
 package com.tenpo.api.services;
 
-import com.tenpo.api.exceptions.ApiException;
 import com.tenpo.api.entities.Result;
+import com.tenpo.api.exceptions.ApiException;
 import com.tenpo.api.exceptions.ProviderException;
 import com.tenpo.api.repositories.ResultsRepository;
 import org.slf4j.Logger;
@@ -29,9 +29,8 @@ public class ApiService {
     }
 
     public Double sumWithPercentage(Double num1, Double num2) throws ApiException {
-        Double percentage = null;
         try {
-            percentage = externalService.getPercentage();
+            Double percentage = externalService.getPercentage();
             Double value = (num1 + num2) * (1 + percentage / 100);
             Result result = new Result(LocalDateTime.now(), num1, num2, percentage, value);
             saveResult(result);
@@ -47,8 +46,8 @@ public class ApiService {
     }
 
     @Async
-    protected void saveResult(Result result){
-        try{
+    protected void saveResult(Result result) {
+        try {
             resultsRepository.save(result);
         } catch (Exception e) {
             log.error("Unexpected error trying save result in DB: " + e.getMessage());

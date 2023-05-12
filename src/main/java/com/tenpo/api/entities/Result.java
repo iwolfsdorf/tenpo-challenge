@@ -26,7 +26,8 @@ public class Result {
     @Column(name = "value")
     private Double value;
 
-    public Result() {}
+    public Result() {
+    }
 
     public Result(LocalDateTime dateTime, Double num1, Double num2, Double percentage, Double value) {
         this.dateTime = dateTime;

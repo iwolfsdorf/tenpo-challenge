@@ -17,7 +17,7 @@ public class RetryConfig {
 
         //Fixed delay of 1 second between retries
         FixedBackOffPolicy fixedBackOffPolicy = new FixedBackOffPolicy();
-        fixedBackOffPolicy.setBackOffPeriod(1000l);
+        fixedBackOffPolicy.setBackOffPeriod(1000L);
         retryTemplate.setBackOffPolicy(fixedBackOffPolicy);
 
         //Retry only 3 times
